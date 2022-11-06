@@ -142,7 +142,7 @@ contract ProductOrder is KeeperCompatibleInterface {
             payable(i_purchaserAddress).transfer(s_amountOfMoney);
             s_amountOfMoney = 0;
         } else if (s_state == POState.DISPUTE) {
-            s_state == POState.DISPUTE_END;
+            s_state = POState.DISPUTE_END;
             payable(i_purchaserAddress).transfer(s_amountOfMoney - uint256(s_tokenWorthShipped));
             payable(i_vendorAddress).transfer(uint256(s_tokenWorthShipped));
             s_amountOfMoney = 0;
