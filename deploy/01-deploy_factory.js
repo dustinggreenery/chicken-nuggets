@@ -6,6 +6,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deploy, log } = deployments;
     const { purchaser } = await getNamedAccounts();
 
+    // Deploying the product order factory
     const factory = await deploy("ProductOrderFactory", {
         from: purchaser,
         args: [],
@@ -13,6 +14,9 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
         waitConfirmations: network.config.blockConfirmations || 1,
     });
 
+    console.log(`Factory Address: ${factory.address}`);
+
+    // Verifying the product order factory on etherscan
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         await verify(factory.address, []);
     }

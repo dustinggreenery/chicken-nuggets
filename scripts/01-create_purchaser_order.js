@@ -1,34 +1,47 @@
-const { developmentChains } = require("../helper-hardhat-config");
+const { developmentChains, networkConfig } = require("../helper-hardhat-config");
 const { network, ethers, getNamedAccounts } = require("hardhat");
 const { verify } = require("../utils/verify");
 
 async function createPO() {
-    const { purchaser, vendor } = await getNamedAccounts();
-    const factoryAddress = "0xAc04165956adc99e72211eb36A9eD5e05D907933";
+    const chainId = network.config.chainId;
 
+    // Arguments used in creating a product order
+    const factoryAddress = networkConfig[chainId]["factoryAddress"];
+    const { vendor } = await getNamedAccounts();
+    const PONo = 0;
+    const timeToAccept = 1000000000000000;
+    const timeToShip = 1000000000000000;
+    const moneySent = "0.001";
+
+    // Getting the factory contract
     const factory = await ethers.getContractAt("ProductOrderFactory", factoryAddress);
 
-    const tx = await factory.createProductOrder(vendor, 0, 1000000000000000, 1000000000000000, {
-        value: ethers.utils.parseEther("0.001"),
+    // Creating a product order
+    const tx = await factory.createProductOrder(vendor, PONo, timeToAccept, timeToShip, {
+        value: ethers.utils.parseEther(moneySent),
     });
-    const receipt = await tx.wait(5);
+    const receipt = await tx.wait(3);
 
+    // Recieving the address of the new product order smart contract from the POCreated event that was emitted
     const POAddress = receipt.events[0].args.PO;
-    const args = [
-        receipt.events[0].args.purchaser,
-        vendor,
-        0,
-        receipt.events[0].args.amountOfMoney,
-        1000000000000000,
-        receipt.events[0].args.acceptTimeStamp,
-        1000000000000000,
-    ];
 
+    // Verifying the new smart contract on etherscan
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+        const args = [
+            receipt.events[0].args.purchaser, // Purchaser Address
+            vendor, // Vendor Address
+            PONo, // Purchase Order Number
+            receipt.events[0].args.amountOfMoney, // Amount of Money
+            timeToAccept, // Amount of Seconds for Vendor to Accept Purchase Order
+            receipt.events[0].args.acceptTimeStamp, // Time Stamp for Acceptance
+            timeToShip, // Amount of Seconds for Vendor to Ship Goods
+        ];
+
         await verify(POAddress, args);
     }
 
-    console.log(POAddress);
+    // Printing out the address
+    console.log(`Product Order Address: ${POAddress}`);
 }
 
 createPO()

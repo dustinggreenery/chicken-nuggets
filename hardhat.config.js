@@ -6,7 +6,7 @@ require("hardhat-gas-reporter");
 require("hardhat-contract-sizer");
 require("dotenv").config();
 
-const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL;
+const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const PRIVATE_KEY_2 = process.env.PRIVATE_KEY_2;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
@@ -19,16 +19,16 @@ module.exports = {
             chainId: 31337,
             blockConfirmations: 1,
         },
-        goerli: {
-            chainId: 5,
+        sepolia: {
+            chainId: 11155111,
             blockConfirmations: 6,
-            url: GOERLI_RPC_URL,
+            url: SEPOLIA_RPC_URL,
             accounts: [PRIVATE_KEY, PRIVATE_KEY_2],
         },
     },
     etherscan: {
         apiKey: {
-            goerli: ETHERSCAN_API_KEY,
+            sepolia: ETHERSCAN_API_KEY,
         },
     },
     gasReporter: {

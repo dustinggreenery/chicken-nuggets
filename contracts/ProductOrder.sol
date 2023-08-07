@@ -6,12 +6,11 @@ import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 error ProductOrder__NotPurchaser();
 error ProductOrder__NotVendor();
 
-
 contract ProductOrder is KeeperCompatibleInterface {
     // State of Order
     enum POState {
 	    SENT,
-	    CANCELLED,
+	    CANCELLED,  
 	    ACCEPTED,
 	    DISPUTE,
         END,
@@ -39,8 +38,6 @@ contract ProductOrder is KeeperCompatibleInterface {
     int256 private s_tokenWorthGot = -1;
     int256 private s_tokenWorthShipped = -2;
 
-    // Events??
-
     // Modifiers
     modifier onlyPurchaser() {
         if (msg.sender != i_purchaserAddress) revert ProductOrder__NotPurchaser();
@@ -51,6 +48,7 @@ contract ProductOrder is KeeperCompatibleInterface {
         _;
     }
 
+    // Constructor to Create Smart Contract
     constructor(address purchaserAddress, address vendorAddress, uint256 PONo, uint256 amountOfMoney, uint256 timeToAccept, uint256 acceptTimeStamp, uint256 timeToShip) {
         i_purchaserAddress = purchaserAddress;
         i_vendorAddress = vendorAddress;
@@ -63,10 +61,12 @@ contract ProductOrder is KeeperCompatibleInterface {
         s_state = POState.SENT;
     }
 
+    // Receieve and Fallback Functions
     receive() external payable {}
 
     fallback() external payable {}
 
+    // A function for the purchaser to cancel a sent order
     function cancelOrder() public onlyPurchaser {
         require(s_state == POState.SENT);
 
@@ -76,6 +76,7 @@ contract ProductOrder is KeeperCompatibleInterface {
         s_state = POState.CANCELLED;
     }
 
+    // A function to let the vendor accept and receieve a purchase order
     function recievePurchaseOrder(bool orderAccepted, uint256 amountOfPOAccepted) public onlyVendor {
         require(s_state == POState.SENT);
         require(amountOfPOAccepted <= s_amountOfMoney);
@@ -93,6 +94,7 @@ contract ProductOrder is KeeperCompatibleInterface {
         }
     }
 
+    // When the purchaser receieves the goods, they set the shipment value
     function setShipmentValue(uint256 shipmentValue) public onlyPurchaser {
         require(s_state == POState.ACCEPTED);
         require(shipmentValue <= s_amountOfMoney);
@@ -109,6 +111,7 @@ contract ProductOrder is KeeperCompatibleInterface {
         }
     }
 
+    // In a case of a dispute, this function lets the purchaser set their variable
     function setPurchaserDispute(int256 tokenWorthGot) public onlyPurchaser {
         require(s_state == POState.DISPUTE);
         require(tokenWorthGot <= int256(s_amountOfMoney));
@@ -116,6 +119,7 @@ contract ProductOrder is KeeperCompatibleInterface {
         s_tokenWorthGot = tokenWorthGot;
     }
 
+    // In a case of a dispute, this function lets the vendor set their variable
     function setVendorDispute(int256 tokenWorthShipped) public onlyVendor {
         require(s_state == POState.DISPUTE);
         require(tokenWorthShipped <= int256(s_amountOfMoney));
@@ -123,6 +127,7 @@ contract ProductOrder is KeeperCompatibleInterface {
         s_tokenWorthShipped = tokenWorthShipped;
     }
 
+    // This function is the upkeep which checks the time the purchase order is sent, the time it takes to ship, and the dispute variables in their respective states
     function checkUpkeep(bytes memory) public view override returns (bool upkeepNeeded, bytes memory) {
         if (s_state == POState.SENT) {
             upkeepNeeded = (block.timestamp - i_acceptTimeStamp) > i_timeToAccept;
@@ -133,6 +138,8 @@ contract ProductOrder is KeeperCompatibleInterface {
         }
     }
 
+    // This function performs upkeeps when conditions are met. When a sent or accepted purchase order runs out of time to accept or ship, this function refunds the purchaser.
+    // In a dispute, this function gives the deserved money to the purchaser and vendor.
     function performUpkeep(bytes calldata) external override {
         (bool upkeepNeeded, ) = checkUpkeep("");
         require(upkeepNeeded);
@@ -142,13 +149,14 @@ contract ProductOrder is KeeperCompatibleInterface {
             payable(i_purchaserAddress).transfer(s_amountOfMoney);
             s_amountOfMoney = 0;
         } else if (s_state == POState.DISPUTE) {
-            s_state == POState.DISPUTE_END;
+            s_state = POState.DISPUTE_END;
             payable(i_purchaserAddress).transfer(s_amountOfMoney - uint256(s_tokenWorthShipped));
             payable(i_vendorAddress).transfer(uint256(s_tokenWorthShipped));
             s_amountOfMoney = 0;
         }
     }
 
+    // Getter functions for all the variables
     function getState() public view returns(POState) {
         return s_state;
     }
