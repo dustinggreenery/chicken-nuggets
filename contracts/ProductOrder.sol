@@ -12,8 +12,9 @@ contract ProductOrder is KeeperCompatibleInterface {
 	    SENT,
 	    CANCELLED,  
 	    ACCEPTED,
-	    DISPUTE,
+        GOODS_SENT,
         END,
+	    DISPUTE,
         DISPUTE_END
     }
     POState private s_state;
@@ -94,9 +95,15 @@ contract ProductOrder is KeeperCompatibleInterface {
         }
     }
 
+    function setProductSent() public onlyVendor {
+        require(s_state == POState.ACCEPTED);
+
+        s_state = POState.GOODS_SENT;
+    }
+
     // When the purchaser receieves the goods, they set the shipment value
     function setShipmentValue(uint256 shipmentValue) public onlyPurchaser {
-        require(s_state == POState.ACCEPTED);
+        require(s_state == POState.GOODS_SENT);
         require(shipmentValue <= s_amountOfMoney);
         require(shipmentValue >= 0);
 
