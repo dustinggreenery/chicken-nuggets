@@ -10,8 +10,10 @@ contract ProductOrder is KeeperCompatibleInterface {
     // State of Order
     enum POState {
 	    SENT,
+        A_OUT_OF_TIME,
 	    CANCELLED,  
 	    ACCEPTED,
+        S_OUT_OF_TIME,
         GOODS_SENT,
         END,
 	    DISPUTE,
@@ -30,9 +32,9 @@ contract ProductOrder is KeeperCompatibleInterface {
     uint256 private immutable i_PONo;
 
     // Timing to accept and shipping
-    uint256 private immutable i_timeToAccept;
-    uint256 private immutable i_acceptTimeStamp;
-    uint256 private immutable i_timeToShip;
+    uint256 private s_timeToAccept;
+    uint256 private s_acceptTimeStamp;
+    uint256 private s_timeToShip;
     uint256 private s_shippingTimeStamp;
 
     // Dispute Variables
@@ -55,9 +57,9 @@ contract ProductOrder is KeeperCompatibleInterface {
         i_vendorAddress = vendorAddress;
         i_PONo = PONo;
         s_amountOfMoney = amountOfMoney;
-        i_timeToAccept = timeToAccept;
-        i_acceptTimeStamp = acceptTimeStamp;
-        i_timeToShip = timeToShip;
+        s_timeToAccept = timeToAccept;
+        s_acceptTimeStamp = acceptTimeStamp;
+        s_timeToShip = timeToShip;
         
         s_state = POState.SENT;
     }
@@ -77,6 +79,22 @@ contract ProductOrder is KeeperCompatibleInterface {
         s_state = POState.CANCELLED;
     }
 
+    function giveReceivingTime(bool giveMoreTime, uint256 timeToAccept) public onlyPurchaser {
+        require(s_state == POState.A_OUT_OF_TIME);
+
+        if (!giveMoreTime) {
+            s_state = POState.CANCELLED;
+            payable(i_purchaserAddress).transfer(s_amountOfMoney);
+            s_amountOfMoney = 0;
+        } else if (giveMoreTime) {
+            require(timeToAccept > 0);
+
+            s_acceptTimeStamp = block.timestamp;
+            s_timeToAccept = timeToAccept;
+            s_state = POState.SENT;
+        }
+    }
+
     // A function to let the vendor accept and receieve a purchase order
     function recievePurchaseOrder(bool orderAccepted, uint256 amountOfPOAccepted) public onlyVendor {
         require(s_state == POState.SENT);
@@ -92,6 +110,22 @@ contract ProductOrder is KeeperCompatibleInterface {
             s_shippingTimeStamp = block.timestamp;
             payable(i_purchaserAddress).transfer(s_amountOfMoney - amountOfPOAccepted);
             s_amountOfMoney = amountOfPOAccepted;
+        }
+    }
+
+    function giveShippingTime(bool giveMoreTime, uint256 timeToShip) public onlyPurchaser {
+        require(s_state == POState.S_OUT_OF_TIME);
+
+        if (!giveMoreTime) {
+            s_state = POState.CANCELLED;
+            payable(i_purchaserAddress).transfer(s_amountOfMoney);
+            s_amountOfMoney = 0;
+        } else if (giveMoreTime) {
+            require(timeToShip > 0);
+
+            s_shippingTimeStamp = block.timestamp;
+            s_timeToShip = timeToShip;
+            s_state = POState.ACCEPTED;
         }
     }
 
@@ -137,9 +171,9 @@ contract ProductOrder is KeeperCompatibleInterface {
     // This function is the upkeep which checks the time the purchase order is sent, the time it takes to ship, and the dispute variables in their respective states
     function checkUpkeep(bytes memory) public view override returns (bool upkeepNeeded, bytes memory) {
         if (s_state == POState.SENT) {
-            upkeepNeeded = (block.timestamp - i_acceptTimeStamp) > i_timeToAccept;
+            upkeepNeeded = (block.timestamp - s_acceptTimeStamp) > s_timeToAccept;
         } else if (s_state == POState.ACCEPTED) {
-            upkeepNeeded = ((block.timestamp - s_shippingTimeStamp) > i_timeToShip) && s_tokenWorthGot == -1;
+            upkeepNeeded = ((block.timestamp - s_shippingTimeStamp) > s_timeToShip) && s_tokenWorthGot == -1;
         } else if (s_state == POState.DISPUTE) {
             upkeepNeeded = s_tokenWorthGot == s_tokenWorthShipped;
         }
@@ -151,10 +185,10 @@ contract ProductOrder is KeeperCompatibleInterface {
         (bool upkeepNeeded, ) = checkUpkeep("");
         require(upkeepNeeded);
 
-        if (s_state == POState.SENT || s_state == POState.ACCEPTED) {
-            s_state = POState.CANCELLED;
-            payable(i_purchaserAddress).transfer(s_amountOfMoney);
-            s_amountOfMoney = 0;
+        if (s_state == POState.SENT) {
+            s_state = POState.A_OUT_OF_TIME;
+        } else if (s_state == POState.ACCEPTED) {
+            s_state = POState.S_OUT_OF_TIME;
         } else if (s_state == POState.DISPUTE) {
             s_state = POState.DISPUTE_END;
             payable(i_purchaserAddress).transfer(s_amountOfMoney - uint256(s_tokenWorthShipped));
@@ -185,15 +219,15 @@ contract ProductOrder is KeeperCompatibleInterface {
     }
 
     function getTimeToAccept() public view returns(uint256) {
-        return i_timeToAccept;
+        return s_timeToAccept;
     }
 
     function getAcceptTimeStamp() public view returns(uint256) {
-        return i_acceptTimeStamp;
+        return s_acceptTimeStamp;
     }
 
     function getTimeToShip() public view returns(uint256) {
-        return i_timeToShip;
+        return s_timeToShip;
     }
 
     function getShippingTimeStamp() public view returns(uint256) {

@@ -1,7 +1,7 @@
 const networkConfig = {
     11155111: {
         name: "sepolia",
-        factoryAddress: "0xF6f9a3550F2C8e2F4C7Eea990ff010Eb3C49467a",
+        factoryAddress: "0xa0B60062c6b46652F496819DF5E1A48063AF46d6",
     },
     31337: {
         name: "hardhat",
