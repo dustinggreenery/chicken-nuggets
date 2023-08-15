@@ -1,0 +1,14 @@
+.Contract {
+    height: 10%;
+    width: 10%;
+}
+
+.Contract-header {
+    color: #F5D0A5;
+    align-items: center;
+}
+
+.Contract-text {
+    color: #3A3229;
+    font-size:  calc(7px + 2vmin);;
+}
