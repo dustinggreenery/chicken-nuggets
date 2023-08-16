@@ -7,6 +7,7 @@ require("hardhat-contract-sizer");
 require("dotenv").config();
 
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL;
+const APOTHEM_RPC_URL = process.env.APOTHEM_RPC_URL;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const PRIVATE_KEY_2 = process.env.PRIVATE_KEY_2;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
@@ -23,6 +24,12 @@ module.exports = {
             chainId: 11155111,
             blockConfirmations: 6,
             url: SEPOLIA_RPC_URL,
+            accounts: [PRIVATE_KEY, PRIVATE_KEY_2],
+        },
+        apothem: {
+            chainId: 51,
+            blockConfirmations: 6,
+            url: APOTHEM_RPC_URL,
             accounts: [PRIVATE_KEY, PRIVATE_KEY_2],
         },
     },

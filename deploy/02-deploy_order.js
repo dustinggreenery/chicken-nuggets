@@ -49,4 +49,4 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     );
 };
 
-module.exports.tags = ["all", "deploy"];
+module.exports.tags = ["all", "order"];
