@@ -4,7 +4,10 @@
     "dotenv": "^16.0.3",
     "hardhat": "^2.11.1",
     "hardhat-contract-sizer": "^2.6.1",
-    "hardhat-deploy": "^0.11.19"
+    "hardhat-deploy": "^0.11.19",
+    "moralis-v1": "^1.13.0",
+    "react-moralis": "^1.4.2",
+    "web3uikit": "^1.0.4"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.5.1",
