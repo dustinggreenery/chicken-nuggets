@@ -874,6 +874,11 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
+"@goplugin/contracts@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@goplugin/contracts/-/contracts-0.0.2.tgz#105528c8f601ac1eb6b8bd41f2b024d952be5a6d"
+  integrity sha512-tZdWX466l/egmaGxQKcwJna7WRj+/iEPfTh3mA2/LFwdJolYh49STadoWjm9fjn1LhB6K5RrvDf+VnHbHa+JDw==
+
 "@metamask/detect-provider@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@metamask/detect-provider/-/detect-provider-1.2.0.tgz#3667a7531f2a682e3c3a43eaf3a1958bdb42a696"

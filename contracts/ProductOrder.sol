@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
 
 error ProductOrder__NotPurchaser();
 error ProductOrder__NotVendor();
 
-contract ProductOrder is KeeperCompatibleInterface {
+contract ProductOrder is AutomationCompatibleInterface {
     // State of Order
     enum POState {
 	    SENT,
@@ -129,10 +129,12 @@ contract ProductOrder is KeeperCompatibleInterface {
         }
     }
 
-    function setProductSent() public onlyVendor {
+    function setProductSent(bool sent) public onlyVendor {
         require(s_state == POState.ACCEPTED);
 
-        s_state = POState.GOODS_SENT;
+        if (sent) {
+            s_state = POState.GOODS_SENT;
+        }
     }
 
     // When the purchaser receieves the goods, they set the shipment value
