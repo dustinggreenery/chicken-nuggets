@@ -50,23 +50,6 @@ export default function ContractButton() {
         msgValue: moneySent * 10 ** 18,
     });
 
-    // function createContract() {
-    //     // const provider = new ethers.providers.WebSocketProvider(process.env.SEPOLIA_WEBSOCKET);
-    //     const contract = new ethers.Contract(factoryAddress, factoryAbi, Moralis.enableWeb3());
-
-    //     contract.on("POCreated", (from, to, value, event) => {
-    //         let transferEvent = {
-    //             from: from,
-    //             to: to,
-    //             value: value,
-    //             eventData: event,
-    //         };
-    //         console.log(JSON.stringify(transferEvent, null, 4));
-    //     });
-
-    //     createProductOrder();
-    // }
-
     const handleCreateContract = async (tx) => {
         await tx.wait(1).then((result) => {
             setAddress(result.events[0].args.PO);
