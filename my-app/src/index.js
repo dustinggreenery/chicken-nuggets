@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { MoralisProvider } from "react-moralis";
+import { NotificationProvider } from "web3uikit";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <MoralisProvider initializeOnMount={false}>
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
+        <NotificationProvider>
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+        </NotificationProvider>
     </MoralisProvider>
 );
 
