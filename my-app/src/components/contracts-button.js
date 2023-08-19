@@ -1,6 +1,8 @@
+import Moralis from "moralis-v1";
 import { factoryAbi, factoryAddresses } from "../constants";
 import { useState } from "react";
 import { useMoralis, useWeb3Contract } from "react-moralis";
+import { ContractTransaction } from "ethers";
 const ethers = require("ethers");
 
 export default function ContractButton() {
@@ -13,6 +15,7 @@ export default function ContractButton() {
     const [timeToAccept, setTimeToAccept] = useState();
     const [timeToShip, setTimeToShip] = useState();
     const [moneySent, setMoneySent] = useState();
+    const [address, setAddress] = useState("0x");
 
     const changeVendorAddress = (event) => {
         setVendorAddress(event.target.value);
@@ -47,9 +50,28 @@ export default function ContractButton() {
         msgValue: moneySent * 10 ** 18,
     });
 
-    function createContract() {
-        createProductOrder();
-    }
+    // function createContract() {
+    //     // const provider = new ethers.providers.WebSocketProvider(process.env.SEPOLIA_WEBSOCKET);
+    //     const contract = new ethers.Contract(factoryAddress, factoryAbi, Moralis.enableWeb3());
+
+    //     contract.on("POCreated", (from, to, value, event) => {
+    //         let transferEvent = {
+    //             from: from,
+    //             to: to,
+    //             value: value,
+    //             eventData: event,
+    //         };
+    //         console.log(JSON.stringify(transferEvent, null, 4));
+    //     });
+
+    //     createProductOrder();
+    // }
+
+    const handleCreateContract = async (tx) => {
+        await tx.wait(1).then((result) => {
+            setAddress(result.events[0].args.PO);
+        });
+    };
 
     return (
         <div>
@@ -75,7 +97,14 @@ export default function ContractButton() {
                         <label>Money Sent: </label>
                         <input onChange={changeMoneySent} /> <br />
                     </div>
-                    <button onClick={() => createContract()}>New Contract!</button>
+                    <button
+                        onClick={() =>
+                            createProductOrder({ onSuccess: (tx) => handleCreateContract(tx) })
+                        }
+                    >
+                        New Contract!
+                    </button>
+                    <div>New Contract Address: {address}</div>
                 </div>
             ) : (
                 <div>Wallet isn't connected</div>
