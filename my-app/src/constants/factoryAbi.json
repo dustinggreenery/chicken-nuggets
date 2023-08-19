@@ -1,0 +1,61 @@
+[
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "PO",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "purchaser",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amountOfMoney",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "acceptTimeStamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "POCreated",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "vendorAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "PONo",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timeToAccept",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timeToShip",
+                "type": "uint256"
+            }
+        ],
+        "name": "createProductOrder",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    }
+]

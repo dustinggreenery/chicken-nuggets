@@ -1,6 +1,5 @@
 import { Component } from "react";
 import "./header.css";
-import ContractButton from "./contracts-button";
 import { ConnectButton } from "web3uikit";
 
 class Header extends Component {
@@ -10,7 +9,6 @@ class Header extends Component {
                 <header className="Header-header">
                     <p className="Header-title">Chicken Nuggets</p>
                     <ConnectButton moralisAuth={false} />
-                    <ContractButton />
                 </header>
             </div>
         );
