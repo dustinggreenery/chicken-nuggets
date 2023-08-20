@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Header from "./components/header";
 import ContractButton from "./components/contracts-button";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function App() {
     return (
@@ -10,8 +10,8 @@ function App() {
             <Header />
             <header className="App-header">
                 <p className="App-title">Make a new contract</p>
-                <p className="App-subheading">Fast. Secure. Easy.</p>
-                <Link to='/pages/Contract'>
+                <p className="App-subheading">Fast. Secure. Easy. Delicious?</p>
+                <Link to="/pages/Contract">
                     <ContractButton />
                 </Link>
             </header>
