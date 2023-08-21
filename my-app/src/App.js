@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Header from "./components/header";
 import ContractButton from "./components/contracts-button";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function App() {
     return (
