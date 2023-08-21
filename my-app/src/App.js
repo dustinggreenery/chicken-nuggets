@@ -11,7 +11,7 @@ function App() {
             <header className="App-header">
                 <p className="App-title">Make a new contract</p>
                 <p className="App-subheading">Fast. Secure. Easy.</p>
-                <Link to='/pages/Contract'>
+                <Link to ='/contract'>
                     <ContractButton />
                 </Link>
             </header>
