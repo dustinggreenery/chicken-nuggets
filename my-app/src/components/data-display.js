@@ -91,7 +91,7 @@ export default function DataDisplay(props) {
             <div>State: {state}</div>
             <div>Purchaser Address: {purchaserAddress}</div>
             <div>Vendor Address: {vendorAddress}</div>
-            <div>Money in Order: {moneyInContract}</div>
+            <div>Money in Order: {moneyInContract / 10 ** 18} ETH</div>
             <div>Product Order No: {PONo}</div>
             <div>Time for Vendor to Accept: {timeToAccept}</div>
             <div>Time for Vendor to Ship: {timeToShip}</div>

@@ -3,6 +3,15 @@ import Header from "../components/header";
 import DataDisplay from "../components/data-display";
 import { useEnsAddress, useMoralis, useWeb3Contract } from "react-moralis";
 import { orderAbi } from "../constants";
+import RecieveOrderButton from "../components/receive-order-button";
+import Shipped from "../components/shipped-button";
+import { useNotification } from "web3uikit";
+import ShipmentValueButton from "../components/shipment-value-button";
+import Cancel from "../components/cancel-button";
+import AcceptingTimeButton from "../components/accepting-time-button";
+import ShippingTimeButton from "../components/shipping-time-button";
+import PurchaserDispute from "../components/purchaser-disbute";
+import VendorDispute from "../components/vendor-dispute";
 
 export default function Interact() {
     const { isWeb3Enabled, account } = useMoralis();
@@ -13,6 +22,8 @@ export default function Interact() {
     const [userAddress, setUserAddress] = useState();
     const [purchaserAddress, setPurchaserAddress] = useState("0x");
     const [vendorAddress, setVendorAddress] = useState("0x");
+
+    const dispatch = useNotification();
 
     const handleChange = (event) => {
         setAddress(event.target.value);
@@ -56,6 +67,21 @@ export default function Interact() {
         }
     }, [addressEntered]);
 
+    const handleSuccess = async function (tx) {
+        await tx.wait(1);
+        handleNewNotification(tx);
+    };
+
+    const handleNewNotification = function () {
+        dispatch({
+            type: "info",
+            message: "Transaction Complete!",
+            title: "Tx Notification",
+            position: "topR",
+            icon: "e",
+        });
+    };
+
     return (
         <div>
             <Header />
@@ -64,7 +90,6 @@ export default function Interact() {
                     {addressEntered ? (
                         <div>
                             <DataDisplay address={address} />
-
                             {() => {
                                 if (userAddress === purchaserAddress) {
                                     console.log("p");
@@ -77,6 +102,7 @@ export default function Interact() {
                                     return <h1>NAHHH</h1>;
                                 }
                             }}
+                            <br />
                         </div>
                     ) : (
                         <div>
@@ -92,4 +118,17 @@ export default function Interact() {
             )}
         </div>
     );
+}
+
+{
+    /* 
+    cancelOrder: <Cancel address={address} handleSuccess={handleSuccess} />
+    giveReceivingTime: <AcceptingTimeButton address={address} handleSuccess={handleSuccess} />
+    recievePurchaseOrder: <RecieveOrderButton address={address} handleSuccess={handleSuccess} /> 
+    giveShippingTime: <ShippingTimeButton address={address} handleSuccess={handleSuccess} />
+    setProductSent: <Shipped address={address} handleSuccess={handleSuccess} />
+    setShipmentValue: <ShipmentValueButton address={address} handleSuccess={handleSuccess} /> does have wei/ether issue tho
+    setPurchaserDispute: <PurchaserDispute address={address} handleSuccess={handleSuccess} />
+    setVendorDispute: <VendorDispute address={address} handleSuccess={handleSuccess} />
+*/
 }
