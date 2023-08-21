@@ -10,8 +10,8 @@ function App() {
             <Header />
             <header className="App-header">
                 <p className="App-title">Make a new contract</p>
-                <p className="App-subheading">Fast. Secure. Easy. Delicious?</p>
-                <Link to="/pages/Contract">
+                <p className="App-subheading">Fast. Secure. Easy.</p>
+                <Link to ='/contract'>
                     <ContractButton />
                 </Link>
             </header>
