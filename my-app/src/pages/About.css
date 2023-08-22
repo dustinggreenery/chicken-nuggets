@@ -1,0 +1,29 @@
+.About {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .About-header {
+    background-color: #F5EFE0;
+    flex-direction: column;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    min-height: 100vh;
+  }
+  .About-title-color {
+    width: 100%;
+    background-color:  #f9d16c;
+  }
+  .About-title {
+    margin: 2.5%;
+    color: #3A3229;
+    font-size: calc(25px + 2vmin);
+  }
+  .About-subheading {
+    color: #3A3229;
+    font-size: calc(5px + 2vmin);
+    margin: 2.5%;
+  }
+  

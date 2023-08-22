@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.js";
 import Contract from "./pages/Contract.js";
 import Interaction from "./pages/Interaction.js";
+import About from "./pages/About.js";
 import reportWebVitals from "./reportWebVitals";
 import { MoralisProvider } from "react-moralis";
 import { NotificationProvider } from "web3uikit";
@@ -21,7 +22,8 @@ export default function Main() {
                             <Route path="/" element={<Layout />}>
                                 <Route index element={<App />} />
                                 <Route path="/Contract" element={<Contract />} />
-                                <Route path="/Interaction" element={<Interaction />} />
+                                <Route path="/Find" element={<Interaction />} />
+                                <Route path="/About" element={<About />} />
                             </Route>
                         </Routes>
                     </BrowserRouter>
