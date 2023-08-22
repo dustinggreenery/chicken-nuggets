@@ -10,3 +10,5 @@ deploy-improvements.txt
 cache
 artifacts
 deployments
+
+yarn-error.log

@@ -1,6 +1,6 @@
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { useEffect, useState } from "react";
-import { orderAbi } from "../constants";
+import { orderAbi, states } from "../constants";
 
 export default function DataDisplay(props) {
     const { isWeb3Enabled } = useMoralis();
@@ -88,7 +88,7 @@ export default function DataDisplay(props) {
 
     return (
         <div>
-            <div>State: {state}</div>
+            <div>State: {states[state]}</div>
             <div>Purchaser Address: {purchaserAddress}</div>
             <div>Vendor Address: {vendorAddress}</div>
             <div>Money in Order: {moneyInContract / 10 ** 18} ETH</div>
