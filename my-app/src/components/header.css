@@ -1,20 +1,42 @@
-.Header {
-    
-    text-align: center;
-}
-
-.Header-header {
-    color: #FFFFFF;
-    flex-direction: row;
+.Header { 
+    height: 70px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    flex-direction: row;
 }
 
 .Header-title{
     color: #FFBC11;
-    font-size: calc(10px + 2vmin);
+    font-size: 1.6rem;
     font-weight: bold;
-    margin: 10px;
-    margin-left: 50px
+    margin: 15px;
+    width: 20%;
+    padding-left: 20px;
+}
+
+.Header-title:hover{
+    opacity: 60%;
+}
+
+.Option-menu {
+    align-self: center;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 20px;
+    list-style: none;
+    width: 80vw;
+    justify-content: end;
+}
+
+.Options-links {
+    color: #3A3229;
+    padding: 0.57rem 1rem;
+    justify-self: end;
+    text-decoration: none;
+}
+
+.Options-links:hover {
+    background-color: #fcdf95;
+    border-radius: 15px;
+    transition: 0.2s;
 }

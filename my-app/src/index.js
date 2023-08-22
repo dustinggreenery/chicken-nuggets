@@ -10,6 +10,7 @@ import { NotificationProvider } from "web3uikit";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout.js";
 
+
 export default function Main() {
     return (
         <MoralisProvider initializeOnMount={false}>
@@ -19,8 +20,8 @@ export default function Main() {
                         <Routes>
                             <Route path="/" element={<Layout />}>
                                 <Route index element={<App />} />
-                                <Route path="/contract" element={<Contract />} />
-                                <Route path="/interaction" element={<Interaction />} />
+                                <Route path="/Contract" element={<Contract />} />
+                                <Route path="/Interaction" element={<Interaction />} />
                             </Route>
                         </Routes>
                     </BrowserRouter>
