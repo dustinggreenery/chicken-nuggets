@@ -22,7 +22,7 @@ const OptionsMenu = [
 function Header(){
     return (
         <div className="Header">
-                <p className={"Header-title"} href={"/"}>Chicken Nuggets</p>
+                <a className={"Header-title"} href={"/"}>Chicken Nuggets</a>
                 <ConnectButton moralisAuth={false} className={"Connect-button"}/>
                 <ul className={"Option-menu"} >
                     {OptionsMenu.map((item, index) => {
