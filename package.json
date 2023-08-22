@@ -2,12 +2,15 @@
   "dependencies": {
     "@goplugin/contracts": "^0.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "crypto-browserify": "^3.12.0",
     "dotenv": "^16.0.3",
     "hardhat": "^2.11.1",
     "hardhat-contract-sizer": "^2.6.1",
     "hardhat-deploy": "^0.11.19",
+    "https-browserify": "^1.0.0",
     "moralis-v1": "^1.13.0",
     "react-moralis": "^1.4.2",
+    "stream-browserify": "^3.0.0",
     "web3uikit": "^1.0.4"
   },
   "devDependencies": {

@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./pages/Layout.js"
 
 
+
 export default function Main() {
   return (
     <MoralisProvider initializeOnMount={false}>
@@ -17,9 +18,9 @@ export default function Main() {
         <React.StrictMode>
             <BrowserRouter>
               <Routes>
-                <Route path='/' element={< Layout/>}>
+                <Route path='/' element={<Layout/>}>
                   <Route index element={<App />} />
-                  <Route path='/contract' element={<Contract />} />
+                  <Route path='/Contract' element={<Contract />} />
                 </Route>
               </Routes>
             </BrowserRouter>
