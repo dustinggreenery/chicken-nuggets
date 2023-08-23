@@ -12,10 +12,6 @@ const OptionsMenu = [
     {
         title: 'Find Order',
         path: '/Find'
-    },
-    {
-        title: `About us`,
-        path: '/About'
     }
 
 ]

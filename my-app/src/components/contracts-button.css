@@ -7,8 +7,7 @@
     letter-spacing: .03rem;
 }
 
-.Contract-input {
-    
+.Contract-input {  
     font-size:  1rem;
     font-family: "Fira Sans", sans-serif;
     padding: 1vh;
@@ -71,4 +70,15 @@
 .Contract-input-group {
     margin-top: 3%;
     text-align: left;
+}
+
+.Contract-disconnected {
+  align-items: center;
+  
+}
+.Disconnected-text {
+  color:#6d5243;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 0.03px;
 }
