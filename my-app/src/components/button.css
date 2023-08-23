@@ -34,17 +34,14 @@
   }
   
   .container input {
-    position: absolute;
+
     opacity: 0;
     cursor: pointer;
-    height: 0;
-    width: 0;
+  
   }
   
   .checkmark {
     position: absolute;
-    top: 0;
-    left: 0;
     height: 25px;
     width: 25px;
     background-color: #f4e6c6;
@@ -90,6 +87,7 @@
     padding: 10px 20px;
     margin: 2.5% 2.5% 0 0;
     border-radius: 15px;
-    border: 0px;
     font-size: 1rem;
+    background-color: #fcfcfc;
+    border: 1px solid #c6c6c6;
   }

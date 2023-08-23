@@ -1,6 +1,5 @@
 .Interaction {
     background-color: #f5efe0;
-
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -12,27 +11,29 @@
     display: flex;
     align-items: center;
     min-height: 100vh;
+    align-items: center;
 }
 .Interaction-input {
-    width: 50%;
+    width: 55%;
     padding: 12px 20px;
     margin: 2.5% 2.5% 0 0;
     border-radius: 15px;
-    border: 0px;
     font-size: 1rem;
-}
-.button {
-    border-color: #fadd96;
-    background-color: #f3e0b5;
+    background-color: #fcfcfc;
+    border: 1px solid #c6c6c6;
+    margin-top: 0%;
+  }
+  .button {
+    background-color:   #ffda7e;
     padding: 0.72rem 1rem;
     justify-self: end;
     border-radius: 10px;
     border: none;
     font-size: 1rem;
-    color: #3a3229;
-}
-.button:hover {
-    background-color: #fadd96;
+    color: #3A3229;
+  }
+  .button:hover {
+    background-color: #ffda7e;
     border-radius: 15px;
     transition: 0.2s;
 }
@@ -41,6 +42,9 @@
     margin: 2.5%;
     font-size: calc(25px + 2vmin);
     font-weight: bold;
+}
+.Interaction-vp {
+    color:#3A3229
 }
 .Interaction-heading {
     color: #3a3229;
@@ -56,9 +60,46 @@
     color: #3a3229;
     font-size: calc(7px + 2vmin);
     margin: 2.5%;
-}
+    margin-top: 0%;
+  }
+  .find-form {
+    width: 90%;
+    padding: 5vh;
+    margin: auto;
+    background-color: white;
+    flex-direction: column;
+    border-radius: 5px;
+    border-width: 1px;
+    box-shadow: 0.2em 0.2em 0.2em #e0e0e0;
+    margin-top: 2.5%;
+  }
+
 .Interaction-invalid {
-    color: #ff9494;
-    font-size: calc(7px + 2vmin);
-    margin: 2.5%;
+  color: #ff9494;
+  font-size: calc(7px + 2vmin);
+  margin: 2.5%;
+}
+
+.Made-button {
+  margin-left: 30%;
+  color: #3A3229;
+}
+.Disconnected-bg {
+  align-items: center;
+  padding-top: 10vh;
+  background-color: #f5efe0;
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+}
+
+.Contract-disconnected {
+  align-items: center;
+}
+
+.Disconnected-text {
+  color:#6d5243;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 0.03px;
 }

@@ -1,26 +1,26 @@
 .Contract-text {
     color: #3A3229;
-    font-size:  1em;
+    font-size:  1rem;
     font-family: "Fira Sans", sans-serif;
     text-align: center;
     margin-top: 5%;
     letter-spacing: .03rem;
 }
 
-.Contract-input {
-    font-size:  calc(7px + 2vmin);
+.Contract-input {  
+    font-size:  1rem;
     font-family: "Fira Sans", sans-serif;
     padding: 1vh;
-    width: 50vh;
+    width: 95%;
     height: 1vh;
-    background-color: #f9f8f8;
+    background-color: #fcfcfc;
     border: 1px solid #c6c6c6;
     border-radius: 5px;
 }
 
 .Contract-Submit {
   background-color: #ffda7e;
-  border: 0.5px solid #c6c6c6;
+  border: none;
   border-radius: 8px;
   box-sizing: border-box;
   color: #222222;
@@ -28,7 +28,7 @@
   display: inline-block;
   font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  
   line-height: 20px;
   outline: none;
   padding: 2% 4%;
@@ -70,4 +70,15 @@
 .Contract-input-group {
     margin-top: 3%;
     text-align: left;
+}
+
+.Contract-disconnected {
+  align-items: center;
+  
+}
+.Disconnected-text {
+  color:#6d5243;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 0.03px;
 }

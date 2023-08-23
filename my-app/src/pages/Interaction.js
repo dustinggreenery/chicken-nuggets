@@ -13,6 +13,7 @@ import AcceptingTimeButton from "../components/accepting-time-button";
 import ShippingTimeButton from "../components/shipping-time-button";
 import PurchaserDispute from "../components/purchaser-disbute";
 import VendorDispute from "../components/vendor-dispute";
+import disconnect from "../connect.png"
 
 export default function Interact() {
     const { isWeb3Enabled, account } = useMoralis();
@@ -40,7 +41,7 @@ export default function Interact() {
             onError: () => setInvalidAddress(true),
         });
     }
-
+    
     const { runContractFunction: getPurchaserAddress } = useWeb3Contract({
         abi: orderAbi,
         contractAddress: address,
@@ -110,8 +111,8 @@ export default function Interact() {
                             <DataDisplay address={address} />
                             <br />
                             {userAddress === purchaserAddress ? (
-                                <div>
-                                    You are the purchaser in this order
+                                <div className="Made-button">
+                                    You are the purchaser in this order!
                                     {state === "0" ? (
                                         <div>
                                             <br />{" "}
@@ -173,8 +174,8 @@ export default function Interact() {
                                     )}
                                 </div>
                             ) : userAddress === vendorAddress ? (
-                                <div>
-                                    You are the vendor in this order
+                                <div className="Made-button">
+                                    You are the vendor in this order!
                                     {state === "0" ? (
                                         <div>
                                             <br />{" "}
@@ -237,21 +238,12 @@ export default function Interact() {
                         </div>
                     ) : (
                         <div>
-                            <header className="Interaction-heading-color">
-                                <p className="Interaction-heading">Find your order</p>
+
+                            <header className="find-form">
+                                <label className="Interaction-subheading">Enter your order address </label>
+                                <input className="Interaction-input" onChange={handleChange} placeholder="Search..." />
+                                <button className="button" onClick={() => enterAddress()}>Search</button>
                             </header>
-                            <label className="Interaction-subheading">
-                                Enter your order address:{" "}
-                            </label>
-                            <input
-                                className="Interaction-input"
-                                onChange={handleChange}
-                                placeholder="Search..."
-                            />
-                            <button className="button" onClick={() => enterAddress()}>
-                                Search
-                            </button>
-                            <br />
                             {invalidAddress ? (
                                 <div>
                                     <label className="Interaction-invalid">
@@ -261,11 +253,17 @@ export default function Interact() {
                             ) : (
                                 <div></div>
                             )}
+
                         </div>
                     )}
                 </div>
             ) : (
-                <div>Please Connect your Wallet</div>
+                <div className={"Disconnected-bg"}>
+                    <div className="Contract-disconnected">
+                        <img width="70" height="70" src={disconnect}/>
+                        <p className="Disconnected-text">Wallet isn't connected!</p>
+                    </div>
+                </div>   
             )}
         </div>
     );

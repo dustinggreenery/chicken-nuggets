@@ -38,8 +38,9 @@ export default function RecieveOrderButton(props) {
             </div>
                 {orderAccepted ? <div>
                     <label className="Button-label">Amount of Order Accepted: </label>
-                    <input className="input" onChange={changeAmountAccepted} placeholder="in wei..." /> <br />
+                    <input className="input" onChange={changeAmountAccepted} placeholder="in wei..." />
                 </div> : false}
+                <br/>
                 <button className="Button" onClick={() => recievePurchaseOrder({ onSuccess: props.handleSuccess })}>
                     Receive Order
                 </button>

@@ -3,7 +3,7 @@ import { factoryAbi, factoryAddresses } from "../constants";
 import { useState } from "react";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { useNotification } from "web3uikit";
-
+import disconnect from "../connect.png"
 export default function ContractButton() {
     const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
     const chainId = parseInt(chainIdHex);
@@ -84,15 +84,15 @@ export default function ContractButton() {
                         </div>
                         <div className='Contract-input-group'>
                             <label className="Contract-text">Time for Vendor to Accept: </label>
-                            <input className="Contract-input" onChange={changeTimeToAccept} /> <br />
+                            <input className="Contract-input" onChange={changeTimeToAccept} placeholder="In seconds..." /> <br />
                         </div>
                         <div className='Contract-input-group'>
                             <label className="Contract-text">Time for Vendor to Ship: </label>
-                            <input className="Contract-input" onChange={changeTimeToShip} /> <br />
+                            <input className="Contract-input" onChange={changeTimeToShip} placeholder="In seconds..."/> <br />
                         </div>
                         <div className='Contract-input-group'>
                             <label className="Contract-text">Money Sent: </label>
-                            <input className="Contract-input" onChange={changeMoneySent} /> <br />
+                            <input className="Contract-input" onChange={changeMoneySent} placeholder="In wei..."/> <br />
                         </div>
                     </div>
                     <button
@@ -104,7 +104,11 @@ export default function ContractButton() {
                     <div className="Contract-text">New Contract Address: {address}</div>
                 </div>
             ) : (
-                <div>Wallet isn't connected</div>
+                
+                <div className="Contract-disconnected">
+                    <img width="70" height="70" src={disconnect}/>
+                    <p className="Disconnected-text">Wallet isn't connected!</p>
+                </div>
             )}
         </div>
     );
