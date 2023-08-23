@@ -3,6 +3,7 @@ import Header from "../components/header";
 import DataDisplay from "../components/data-display";
 import { useEnsAddress, useMoralis, useWeb3Contract } from "react-moralis";
 import { orderAbi } from "../constants";
+import "./Interaction.css"
 import RecieveOrderButton from "../components/receive-order-button";
 import Shipped from "../components/shipped-button";
 import { useNotification } from "web3uikit";
@@ -96,7 +97,7 @@ export default function Interact() {
         <div>
             <Header />
             {isWeb3Enabled ? (
-                <div>
+                <div className="Interaction">
                     {addressEntered ? (
                         <div>
                             <DataDisplay address={address} />
@@ -229,10 +230,12 @@ export default function Interact() {
                         </div>
                     ) : (
                         <div>
-                            <label>Enter Address: </label>
-                            <input onChange={handleChange} />
-                            <br />
-                            <button onClick={() => enterAddress()}>Enter</button>
+                            <header className="Interaction-heading-color">
+                                 <p className="Interaction-heading">Find your order</p>
+                            </header>
+                            <label className="Interaction-subheading">Enter your order address: </label>
+                            <input className="Interaction-input" onChange={handleChange} placeholder="Search..." />
+                            <button className="button" onClick={() => enterAddress()}>Search</button>
                         </div>
                     )}
                 </div>
