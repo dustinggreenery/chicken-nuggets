@@ -1,5 +1,6 @@
 import { useWeb3Contract } from "react-moralis";
 import { orderAbi } from "../constants";
+import "./button.css"
 
 export default function Shipped(props) {
     const { runContractFunction: setProductSent } = useWeb3Contract({
@@ -13,8 +14,8 @@ export default function Shipped(props) {
 
     return (
         <div>
-            <label>Have the products been shipped? </label>
-            <button onClick={() => setProductSent({ onSuccess: props.handleSuccess })}>Yes</button>
+            <label className="Button-label">Have the products been shipped? </label>
+            <button className="Button" onClick={() => setProductSent({ onSuccess: props.handleSuccess })}>Yes</button>
         </div>
     );
 }

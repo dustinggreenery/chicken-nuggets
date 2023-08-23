@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useWeb3Contract } from "react-moralis";
 import { orderAbi } from "../constants";
+import "./button.css"
 
 export default function RecieveOrderButton(props) {
-    const [orderAccepted, setOrderAccepted] = useState();
-    const [amountAccepted, setAmountAccepted] = useState();
+    const [orderAccepted, setOrderAccepted] = useState(false);
+    const [amountAccepted, setAmountAccepted] = useState(1);
 
-    const changeOrderAccepted = (event) => {
-        setOrderAccepted(event.target.value);
+    const changeOrderAccepted = () => {
+        setOrderAccepted(!orderAccepted);
     };
 
     const changeAmountAccepted = (event) => {
@@ -27,16 +28,21 @@ export default function RecieveOrderButton(props) {
     return (
         <div>
             <div>
-                <label>Accept Order? </label>
-                <input onChange={changeOrderAccepted} /> <br />
+                <label className="Button-label">Accept Order? </label>
+                <label className="container"> Yes
+                    <input className="checkbox" type="checkbox" checked={orderAccepted} onChange={changeOrderAccepted} /> <span className="checkmark"></span>
+                </label> 
+                <label className="container"> No
+                    <input className="checkbox" type="checkbox"  checked={!orderAccepted}onChange={changeOrderAccepted} /> <span className="checkmark"></span>
+                </label> 
             </div>
-            <div>
-                <label>Amount of Order Accepted: </label>
-                <input onChange={changeAmountAccepted} /> wei <br />
-            </div>
-            <button onClick={() => recievePurchaseOrder({ onSuccess: props.handleSuccess })}>
-                Receive Order
-            </button>
+                {orderAccepted ? <div>
+                    <label className="Button-label">Amount of Order Accepted: </label>
+                    <input className="input" onChange={changeAmountAccepted} placeholder="in wei..." /> <br />
+                </div> : false}
+                <button className="Button" onClick={() => recievePurchaseOrder({ onSuccess: props.handleSuccess })}>
+                    Receive Order
+                </button>
         </div>
     );
 }
