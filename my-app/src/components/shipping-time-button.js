@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useWeb3Contract } from "react-moralis";
 import { orderAbi } from "../constants";
+import "./button.css"
 
 export default function ShippingTimeButton(props) {
-    const [giveMoreTime, setGiveMoreTime] = useState();
+    const [giveMoreTime, setGiveMoreTime] = useState(false);
     const [timeToShip, setTimeToShip] = useState();
 
-    const changeGiveMoreTime = (event) => {
-        setGiveMoreTime(event.target.value);
+    const changeGiveMoreTime = () => {
+        setGiveMoreTime(!giveMoreTime);
     };
 
     const changeTimeToShip = (event) => {
@@ -27,14 +28,22 @@ export default function ShippingTimeButton(props) {
     return (
         <div>
             <div>
-                <label>Give More Time? </label>
-                <input onChange={changeGiveMoreTime} /> <br />
+                <label className="Button-label">Give More Time? </label>
+                <label className="container"> Yes
+                    <input className="checkbox" type="checkbox" checked={giveMoreTime} onChange={changeGiveMoreTime} /> <span className="checkmark"></span>
+                </label> 
+                <label className="container"> No
+                    <input className="checkbox" type="checkbox"  checked={!giveMoreTime}onChange={changeGiveMoreTime} /> <span className="checkmark"></span>
+                </label> 
             </div>
-            <div>
-                <label>Time to Ship: </label>
-                <input onChange={changeTimeToShip} /> <br />
-            </div>
-            <button onClick={() => giveShippingTime({ onSuccess: props.handleSuccess })}>
+            {giveMoreTime ?
+                <div>
+                    <label className="Button-label">Time to Ship: </label>
+                    <input className="input" onChange={changeTimeToShip} /> <br />
+                </div> 
+                : false
+            }
+            <button className="Button" onClick={() => giveShippingTime({ onSuccess: props.handleSuccess })}>
                 Enter
             </button>
         </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { orderAbi } from "../constants";
 import { useWeb3Contract } from "react-moralis";
+import "./button.css"
 
 export default function ShipmentValueButton(props) {
     const [shipmentValue, ssetShipmentValue] = useState();
@@ -21,10 +22,10 @@ export default function ShipmentValueButton(props) {
     return (
         <div>
             <div>
-                <label>Value of Goods Received: </label>
-                <input onChange={changeShipmentValue} /> wei <br />
+                <label className="Button-label" >Value of Goods Received: </label>
+                <input className="input" onChange={changeShipmentValue} placeholder="in wei..." /> wei <br />
             </div>
-            <button onClick={() => setShipmentValue()}>Receive Order</button>
+            <button className="Button" onClick={() => setShipmentValue()}>Receive Order</button>
         </div>
     );
 }
