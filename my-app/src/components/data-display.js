@@ -1,3 +1,4 @@
+import "./data-display.css";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { useEffect, useState } from "react";
 import { orderAbi, states } from "../constants";
@@ -87,14 +88,21 @@ export default function DataDisplay(props) {
     }, [isWeb3Enabled]);
 
     return (
-        <div>
-            <div>State: {states[state]}</div>
-            <div>Purchaser Address: {purchaserAddress}</div>
-            <div>Vendor Address: {vendorAddress}</div>
-            <div>Money in Order: {moneyInContract / 10 ** 18} ETH</div>
-            <div>Product Order No: {PONo}</div>
-            <div>Time for Vendor to Accept: {timeToAccept}</div>
-            <div>Time for Vendor to Ship: {timeToShip}</div>
+        <div className="Display-form">
+            <label className="Display-bold">State:</label>
+            <label className="Display-text"> {states[state]}</label> <br />
+            <label className="Display-bold">Purchaser Address:</label>
+            <label className="Display-text"> {purchaserAddress}</label> <br />
+            <label className="Display-bold">Vendor Address:</label>
+            <label className="Display-text"> {vendorAddress}</label> <br />
+            <label className="Display-bold">Money in Order:</label>
+            <label className="Display-text">{moneyInContract / 10 ** 18} ETH</label> <br />
+            <label className="Display-bold">Product Order No:</label>
+            <label className="Display-text"> {PONo}</label> <br />
+            <label className="Display-bold">Time for Vendor to Accept:</label>
+            <label className="Display-text"> {timeToAccept}</label> <br />
+            <label className="Display-bold">Time for Vendor to Ship:</label>
+            <label className="Display-text"> {timeToShip}</label> <br />
         </div>
     );
 }

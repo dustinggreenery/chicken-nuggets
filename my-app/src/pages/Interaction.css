@@ -1,19 +1,19 @@
 .Interaction {
-    background-color: #F5EFE0;
-    
+    background-color: #f5efe0;
+
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     min-width: 100vw;
-  }
-  
-  .Interaction-header {
+}
+
+.Interaction-header {
     flex-direction: column;
     display: flex;
     align-items: center;
     min-height: 100vh;
-  }
-  .Interaction-input {
+}
+.Interaction-input {
     width: 50%;
     padding: 12px 20px;
     margin: 2.5% 2.5% 0 0;
@@ -29,7 +29,7 @@
     padding: 0.72rem 1rem;
     justify-self: end;
     border-radius: 10px;
-    border:none;
+    border: none;
     font-size: 1rem;
     color: #3A3229;
   }
@@ -37,25 +37,25 @@
     background-color: #ffda7e;
     border-radius: 15px;
     transition: 0.2s;
-  }
-  .Interaction-title {
-    color: #3A3229;
+}
+.Interaction-title {
+    color: #3a3229;
     margin: 2.5%;
     font-size: calc(25px + 2vmin);
     font-weight: bold;
-  }
-  .Interaction-heading {
-    color: #3A3229;
+}
+.Interaction-heading {
+    color: #3a3229;
     font-size: calc(25px + 2vmin);
     margin: 2.5%;
-    justify-content: center;
-  }
-  .Interaction-heading-color {
+    justify-content: start;
+}
+.Interaction-heading-color {
     width: 100%;
-    background-color:  #f9d16c;
-  }
-  .Interaction-subheading {
-    color: #3A3229;
+    background-color: #f9d16c;
+}
+.Interaction-subheading {
+    color: #3a3229;
     font-size: calc(7px + 2vmin);
     margin: 2.5%;
     margin-top: 0%;
@@ -71,3 +71,9 @@
     box-shadow: 0.2em 0.2em 0.2em #e0e0e0;
     margin-top: 2.5%;
   }
+
+.Interaction-invalid {
+  color: #ff9494;
+  font-size: calc(7px + 2vmin);
+  margin: 2.5%;
+}

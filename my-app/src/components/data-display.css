@@ -1,0 +1,35 @@
+.Display-text {
+    color: #4a2511;
+    font-size: 1em;
+    font-family: "Fira Sans", sans-serif;
+    text-align: center;
+    margin-top: 1%;
+    line-height: 1.5;
+    letter-spacing: 0.03rem;
+}
+
+.Display-form {
+    color: #3a3229;
+    width: 42%;
+    height: 10%;
+    padding: 5vh;
+    margin: auto;
+    margin-top: 75px;
+    margin-bottom: 50px;
+    background-color: white;
+    flex-direction: column;
+    border-radius: 5px;
+    border-width: 1px;
+    box-shadow: 0.2em 0.2em 0.2em #e0e0e0;
+}
+
+.Display-bold {
+    color: #371d10;
+    font-size: 1em;
+    font-family: "Fira Sans", sans-serif;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1%;
+    line-height: 1.5;
+    letter-spacing: 0.03rem;
+}
