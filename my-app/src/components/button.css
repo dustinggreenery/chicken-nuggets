@@ -90,6 +90,7 @@
     padding: 10px 20px;
     margin: 2.5% 2.5% 0 0;
     border-radius: 15px;
-    border: 0px;
     font-size: 1rem;
+    background-color: #fcfcfc;
+    border: 1px solid #c6c6c6;
   }

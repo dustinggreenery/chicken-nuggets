@@ -33,7 +33,7 @@ export default function Interact() {
     async function enterAddress() {
         setAddressEntered(true);
     }
-
+    
     const { runContractFunction: getPurchaserAddress } = useWeb3Contract({
         abi: orderAbi,
         contractAddress: address,
@@ -230,12 +230,14 @@ export default function Interact() {
                         </div>
                     ) : (
                         <div>
-                            <header className="Interaction-heading-color">
+                            {/* <header className="Interaction-heading-color">
                                  <p className="Interaction-heading">Find your order</p>
+                            </header> */}
+                            <header className="find-form">
+                                <label className="Interaction-subheading">Enter your order address </label>
+                                <input className="Interaction-input" onChange={handleChange} placeholder="Search..." />
+                                <button className="button" onClick={() => enterAddress()}>Search</button>
                             </header>
-                            <label className="Interaction-subheading">Enter your order address: </label>
-                            <input className="Interaction-input" onChange={handleChange} placeholder="Search..." />
-                            <button className="button" onClick={() => enterAddress()}>Search</button>
                         </div>
                     )}
                 </div>

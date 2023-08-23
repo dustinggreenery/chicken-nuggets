@@ -18,11 +18,13 @@
     padding: 12px 20px;
     margin: 2.5% 2.5% 0 0;
     border-radius: 15px;
-    border: 0px;
     font-size: 1rem;
+    background-color: #fcfcfc;
+    border: 1px solid #c6c6c6;
+    margin-top: 0%;
   }
   .button {
-    border-color:  #fadd96;
+    border-color:  #ffda7e;
     background-color:  #f3e0b5;
     padding: 0.72rem 1rem;
     justify-self: end;
@@ -32,7 +34,7 @@
     color: #3A3229;
   }
   .button:hover {
-    background-color: #fadd96;
+    background-color: #ffda7e;
     border-radius: 15px;
     transition: 0.2s;
   }
@@ -46,7 +48,7 @@
     color: #3A3229;
     font-size: calc(25px + 2vmin);
     margin: 2.5%;
-    justify-content: start;
+    justify-content: center;
   }
   .Interaction-heading-color {
     width: 100%;
@@ -56,4 +58,16 @@
     color: #3A3229;
     font-size: calc(7px + 2vmin);
     margin: 2.5%;
+    margin-top: 0%;
+  }
+  .find-form {
+    width: 90%;
+    padding: 5vh;
+    margin: auto;
+    background-color: white;
+    flex-direction: column;
+    border-radius: 5px;
+    border-width: 1px;
+    box-shadow: 0.2em 0.2em 0.2em #e0e0e0;
+    margin-top: 2.5%;
   }
