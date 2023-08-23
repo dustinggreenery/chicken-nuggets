@@ -1,3 +1,4 @@
+import "./button.css";
 import { useState } from "react";
 import { useWeb3Contract } from "react-moralis";
 import { orderAbi } from "../constants";
@@ -7,7 +8,7 @@ export default function AcceptingTimeButton(props) {
     const [timeToAccept, setTimeToAccept] = useState();
 
     const changeGiveMoreTime = (event) => {
-        setGiveMoreTime(event.target.value);
+        setGiveMoreTime(!giveMoreTime);
     };
 
     const changeTimeToAccept = (event) => {
@@ -27,14 +28,43 @@ export default function AcceptingTimeButton(props) {
     return (
         <div>
             <div>
-                <label>Give More Time? </label>
-                <input onChange={changeGiveMoreTime} /> <br />
+                <label className="Button-label">Give More Time? </label>
+                <label className="container">
+                    {" "}
+                    Yes
+                    <input
+                        className="checkbox"
+                        type="checkbox"
+                        checked={giveMoreTime}
+                        onChange={changeGiveMoreTime}
+                    />{" "}
+                    <span className="checkmark"></span>
+                </label>
+                <label className="container">
+                    {" "}
+                    No
+                    <input
+                        className="checkbox"
+                        type="checkbox"
+                        checked={!giveMoreTime}
+                        onChange={changeGiveMoreTime}
+                    />{" "}
+                    <span className="checkmark"></span>
+                </label>
             </div>
-            <div>
-                <label>Time to Accept: </label>
-                <input onChange={changeTimeToAccept} /> <br />
-            </div>
-            <button onClick={() => giveReceivingTime({ onSuccess: props.handleSuccess })}>
+            {giveMoreTime ? (
+                <div>
+                    <label className="Button-label">Time to Accept: </label>
+                    <input className="input" onChange={changeTimeToAccept} />
+                </div>
+            ) : (
+                false
+            )}
+            <br />
+            <button
+                className="Button"
+                onClick={() => giveReceivingTime({ onSuccess: props.handleSuccess })}
+            >
                 Enter
             </button>
         </div>

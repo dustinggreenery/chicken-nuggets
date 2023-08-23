@@ -1,13 +1,15 @@
 import "./contracts-button.css";
-import { factoryAbi, factoryAddresses } from "../constants";
+import { factoryAbi, factoryAddresses, units } from "../constants";
 import { useState } from "react";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { useNotification } from "web3uikit";
-import disconnect from "../connect.png"
+import disconnect from "../connect.png";
 export default function ContractButton() {
     const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
     const chainId = parseInt(chainIdHex);
     const factoryAddress = chainId in factoryAddresses ? factoryAddresses[chainId][0] : null;
+    const unit = units[chainId];
+    const unitPlaceholder = `In ${unit}...`;
 
     const [vendorAddress, setVendorAddress] = useState();
     const [PONo, setPONo] = useState();
@@ -74,25 +76,41 @@ export default function ContractButton() {
                 <div className="Contract-form">
                     <p className="Contract-title">Create a new order:</p>
                     <div className="Contract-inputs">
-                        <div className='Contract-input-group'>
+                        <div className="Contract-input-group">
                             <label className="Contract-text">Vendor Address: </label>
-                            <input className="Contract-input" onChange={changeVendorAddress} /> <br />
+                            <input className="Contract-input" onChange={changeVendorAddress} />{" "}
+                            <br />
                         </div>
-                        <div className='Contract-input-group'>
+                        <div className="Contract-input-group">
                             <label className="Contract-text">Product Order Number: </label>
                             <input className="Contract-input" onChange={changePONo} /> <br />
                         </div>
-                        <div className='Contract-input-group'>
+                        <div className="Contract-input-group">
                             <label className="Contract-text">Time for Vendor to Accept: </label>
-                            <input className="Contract-input" onChange={changeTimeToAccept} placeholder="In seconds..." /> <br />
+                            <input
+                                className="Contract-input"
+                                onChange={changeTimeToAccept}
+                                placeholder="In seconds..."
+                            />{" "}
+                            <br />
                         </div>
-                        <div className='Contract-input-group'>
+                        <div className="Contract-input-group">
                             <label className="Contract-text">Time for Vendor to Ship: </label>
-                            <input className="Contract-input" onChange={changeTimeToShip} placeholder="In seconds..."/> <br />
+                            <input
+                                className="Contract-input"
+                                onChange={changeTimeToShip}
+                                placeholder="In seconds..."
+                            />{" "}
+                            <br />
                         </div>
-                        <div className='Contract-input-group'>
+                        <div className="Contract-input-group">
                             <label className="Contract-text">Money Sent: </label>
-                            <input className="Contract-input" onChange={changeMoneySent} placeholder="In wei..."/> <br />
+                            <input
+                                className="Contract-input"
+                                onChange={changeMoneySent}
+                                placeholder={unitPlaceholder}
+                            />{" "}
+                            <br />
                         </div>
                     </div>
                     <button
@@ -104,9 +122,8 @@ export default function ContractButton() {
                     <div className="Contract-text">New Contract Address: {address}</div>
                 </div>
             ) : (
-                
                 <div className="Contract-disconnected">
-                    <img width="70" height="70" src={disconnect}/>
+                    <img width="70" height="70" src={disconnect} />
                     <p className="Disconnected-text">Wallet isn't connected!</p>
                 </div>
             )}

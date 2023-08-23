@@ -1,10 +1,12 @@
 import "./data-display.css";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { useEffect, useState } from "react";
-import { orderAbi, states } from "../constants";
+import { orderAbi, states, units } from "../constants";
 
 export default function DataDisplay(props) {
-    const { isWeb3Enabled } = useMoralis();
+    const { isWeb3Enabled, chainId: chainIdHex } = useMoralis();
+    const chainId = parseInt(chainIdHex);
+    const unit = units[chainId];
 
     const [state, setState] = useState();
     const [purchaserAddress, setPurchaserAddress] = useState();
@@ -96,7 +98,10 @@ export default function DataDisplay(props) {
             <label className="Display-bold">Vendor Address:</label>
             <label className="Display-text"> {vendorAddress}</label> <br />
             <label className="Display-bold">Money in Order:</label>
-            <label className="Display-text">{moneyInContract / 10 ** 18} ETH</label> <br />
+            <label className="Display-text">
+                {moneyInContract / 10 ** 18} {unit}
+            </label>{" "}
+            <br />
             <label className="Display-bold">Product Order No:</label>
             <label className="Display-text"> {PONo}</label> <br />
             <label className="Display-bold">Time for Vendor to Accept:</label>
