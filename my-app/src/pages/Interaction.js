@@ -3,7 +3,7 @@ import Header from "../components/header";
 import DataDisplay from "../components/data-display";
 import { useEnsAddress, useMoralis, useWeb3Contract } from "react-moralis";
 import { orderAbi } from "../constants";
-import "./Interaction.css"
+import "./Interaction.css";
 import RecieveOrderButton from "../components/receive-order-button";
 import Shipped from "../components/shipped-button";
 import { useNotification } from "web3uikit";
@@ -23,6 +23,7 @@ export default function Interact() {
     const [purchaserAddress, setPurchaserAddress] = useState("0x");
     const [vendorAddress, setVendorAddress] = useState("0x");
     const [state, setState] = useState();
+    const [invalidAddress, setInvalidAddress] = useState(false);
 
     const dispatch = useNotification();
 
@@ -31,7 +32,13 @@ export default function Interact() {
     };
 
     async function enterAddress() {
-        setAddressEntered(true);
+        await getPurchaserAddress({
+            onSuccess: () => {
+                setInvalidAddress(false);
+                setAddressEntered(true);
+            },
+            onError: () => setInvalidAddress(true),
+        });
     }
 
     const { runContractFunction: getPurchaserAddress } = useWeb3Contract({
@@ -231,11 +238,29 @@ export default function Interact() {
                     ) : (
                         <div>
                             <header className="Interaction-heading-color">
-                                 <p className="Interaction-heading">Find your order</p>
+                                <p className="Interaction-heading">Find your order</p>
                             </header>
-                            <label className="Interaction-subheading">Enter your order address: </label>
-                            <input className="Interaction-input" onChange={handleChange} placeholder="Search..." />
-                            <button className="button" onClick={() => enterAddress()}>Search</button>
+                            <label className="Interaction-subheading">
+                                Enter your order address:{" "}
+                            </label>
+                            <input
+                                className="Interaction-input"
+                                onChange={handleChange}
+                                placeholder="Search..."
+                            />
+                            <button className="button" onClick={() => enterAddress()}>
+                                Search
+                            </button>
+                            <br />
+                            {invalidAddress ? (
+                                <div>
+                                    <label className="Interaction-invalid">
+                                        Invalid Contract Address
+                                    </label>
+                                </div>
+                            ) : (
+                                <div></div>
+                            )}
                         </div>
                     )}
                 </div>
