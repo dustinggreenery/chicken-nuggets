@@ -56,10 +56,10 @@ export default function VendorDispute(props) {
             <div>Purchaser's input on how much got shipped: {tokenWorthGot} ETH</div>
             <br />
             <div>
-                <label>Input the amount you got: </label>
-                <input onChange={changeVendorInput} /> ETH <br />
+                <label className="Button-label">Input the amount you got: </label>
+                <input className="input" onChange={changeVendorInput} /> ETH <br />
             </div>
-            <button onClick={() => setVendorDispute({ onSuccess: props.handleSuccess })}>
+            <button className="Button" onClick={() => setVendorDispute({ onSuccess: props.handleSuccess })}>
                 Input
             </button>
         </div>
