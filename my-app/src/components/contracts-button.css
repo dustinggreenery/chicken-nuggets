@@ -1,14 +1,73 @@
-.Contract {
-    height: 10%;
-    width: 10%;
-}
-
-.Contract-header {
-    color: #F5D0A5;
-    align-items: center;
-}
-
 .Contract-text {
     color: #3A3229;
-    font-size:  calc(7px + 2vmin);;
+    font-size:  1em;
+    font-family: "Fira Sans", sans-serif;
+    text-align: center;
+    margin-top: 5%;
+    letter-spacing: .03rem;
+}
+
+.Contract-input {
+    font-size:  calc(7px + 2vmin);
+    font-family: "Fira Sans", sans-serif;
+    padding: 1vh;
+    width: 50vh;
+    height: 1vh;
+    background-color: #f9f8f8;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+}
+
+.Contract-Submit {
+  background-color: #ffda7e;
+  border: 0.5px solid #c6c6c6;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #222222;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  outline: none;
+  padding: 2% 4%;
+  margin-top: 5%;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+}
+
+.Contract-Submit:focus-visible {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  transition: box-shadow .2s;
+}
+
+.Contract-Submit:active {
+  background-color: #F7F7F7;
+  border-color: #000000;
+  transform: scale(.96);
+}
+
+.Contract-Submit:disabled {
+  border-color: #DDDDDD;
+  color: #DDDDDD;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.Contract-Submit:hover {
+    background-color: #fcdf95;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+
+.Contract-input-group {
+    margin-top: 3%;
+    text-align: left;
 }

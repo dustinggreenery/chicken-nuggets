@@ -71,32 +71,35 @@ export default function ContractButton() {
     return (
         <div>
             {isWeb3Enabled ? (
-                <div>
-                    <div>
-                        <label className="Contract-text">Vendor Address: </label>
-                        <input className="Contract-text" onChange={changeVendorAddress} /> <br />
-                    </div>
-                    <div>
-                        <label className="Contract-text">Product Order Number: </label>
-                        <input className="Contract-text" onChange={changePONo} /> <br />
-                    </div>
-                    <div>
-                        <label className="Contract-text">Time for Vendor to Accept: </label>
-                        <input className="Contract-text" onChange={changeTimeToAccept} /> <br />
-                    </div>
-                    <div>
-                        <label className="Contract-text">Time for Vendor to Ship: </label>
-                        <input className="Contract-text" onChange={changeTimeToShip} /> <br />
-                    </div>
-                    <div>
-                        <label className="Contract-text">Money Sent: </label>
-                        <input className="Contract-text" onChange={changeMoneySent} /> <br />
+                <div className="Contract-form">
+                    <p className="Contract-title">Create a new order:</p>
+                    <div className="Contract-inputs">
+                        <div className='Contract-input-group'>
+                            <label className="Contract-text">Vendor Address: </label>
+                            <input className="Contract-input" onChange={changeVendorAddress} /> <br />
+                        </div>
+                        <div className='Contract-input-group'>
+                            <label className="Contract-text">Product Order Number: </label>
+                            <input className="Contract-input" onChange={changePONo} /> <br />
+                        </div>
+                        <div className='Contract-input-group'>
+                            <label className="Contract-text">Time for Vendor to Accept: </label>
+                            <input className="Contract-input" onChange={changeTimeToAccept} /> <br />
+                        </div>
+                        <div className='Contract-input-group'>
+                            <label className="Contract-text">Time for Vendor to Ship: </label>
+                            <input className="Contract-input" onChange={changeTimeToShip} /> <br />
+                        </div>
+                        <div className='Contract-input-group'>
+                            <label className="Contract-text">Money Sent: </label>
+                            <input className="Contract-input" onChange={changeMoneySent} /> <br />
+                        </div>
                     </div>
                     <button
-                        className="Contract-text"
+                        className="Contract-Submit"
                         onClick={() => createProductOrder({ onSuccess: handleCreateContract })}
                     >
-                        New Contract!
+                        Submit
                     </button>
                     <div className="Contract-text">New Contract Address: {address}</div>
                 </div>
