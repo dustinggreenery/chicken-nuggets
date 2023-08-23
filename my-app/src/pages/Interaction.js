@@ -16,13 +16,13 @@ import VendorDispute from "../components/vendor-dispute";
 
 export default function Interact() {
     const { isWeb3Enabled, account } = useMoralis();
-    const { name } = useEnsAddress(String(account));
 
     const [addressEntered, setAddressEntered] = useState(false);
     const [address, setAddress] = useState("0x");
     const [userAddress, setUserAddress] = useState();
     const [purchaserAddress, setPurchaserAddress] = useState("0x");
     const [vendorAddress, setVendorAddress] = useState("0x");
+    const [state, setState] = useState();
 
     const dispatch = useNotification();
 
@@ -48,12 +48,21 @@ export default function Interact() {
         params: {},
     });
 
-    async function updateAddresses() {
+    const { runContractFunction: getState } = useWeb3Contract({
+        abi: orderAbi,
+        contractAddress: address,
+        functionName: "getState",
+        params: {},
+    });
+
+    async function update() {
         const purchaserAddressFromCall = (await getPurchaserAddress()).toString();
         const vendorAddressFromCall = (await getVendorAddress()).toString();
+        const stateFromCall = (await getState()).toString();
 
         setPurchaserAddress(purchaserAddressFromCall.toLowerCase());
         setVendorAddress(vendorAddressFromCall.toLowerCase());
+        setState(stateFromCall);
     }
 
     useEffect(() => {
@@ -64,13 +73,14 @@ export default function Interact() {
 
     useEffect(() => {
         if (addressEntered) {
-            updateAddresses();
+            update();
         }
     }, [addressEntered]);
 
     const handleSuccess = async function (tx) {
         await tx.wait(1);
         handleNewNotification(tx);
+        update();
     };
 
     const handleNewNotification = function () {
@@ -91,18 +101,131 @@ export default function Interact() {
                     {addressEntered ? (
                         <div>
                             <DataDisplay address={address} />
-                            {() => {
-                                if (userAddress === purchaserAddress) {
-                                    console.log("p");
-                                    return <div>Purchaser</div>;
-                                } else if (userAddress === vendorAddress) {
-                                    console.log("v");
-                                    return <div>Vendor</div>;
-                                } else {
-                                    console.log("o");
-                                    return <h1>NAHHH</h1>;
-                                }
-                            }}
+                            <br />
+                            {userAddress === purchaserAddress ? (
+                                <div>
+                                    You are the purchaser in this order
+                                    {state === "0" ? (
+                                        <div>
+                                            <br />{" "}
+                                            <Cancel
+                                                address={address}
+                                                handleSuccess={handleSuccess}
+                                            />
+                                        </div>
+                                    ) : state === "1" ? (
+                                        <div>
+                                            <br />
+                                            <AcceptingTimeButton
+                                                address={address}
+                                                handleSuccess={handleSuccess}
+                                            />
+                                        </div>
+                                    ) : state === "2" ? (
+                                        <div>
+                                            <br /> The purchaser order is cancelled.
+                                        </div>
+                                    ) : state === "3" ? (
+                                        <div>
+                                            <br /> Waiting on vendor to ship goods...
+                                        </div>
+                                    ) : state === "4" ? (
+                                        <div>
+                                            <br />
+                                            <ShippingTimeButton
+                                                address={address}
+                                                handleSuccess={handleSuccess}
+                                            />
+                                        </div>
+                                    ) : state === "5" ? (
+                                        <div>
+                                            <br />
+                                            <ShipmentValueButton
+                                                address={address}
+                                                handleSuccess={handleSuccess}
+                                            />
+                                        </div>
+                                    ) : state === "6" ? (
+                                        <div>
+                                            <br /> The purchase order has ended.
+                                        </div>
+                                    ) : state === "7" ? (
+                                        <div>
+                                            <br />
+                                            <PurchaserDispute
+                                                address={address}
+                                                handleSuccess={handleSuccess}
+                                            />{" "}
+                                        </div>
+                                    ) : state === "8" ? (
+                                        <div>
+                                            <br /> The dispute has ended.
+                                        </div>
+                                    ) : (
+                                        <div>Well this is an odd place...</div>
+                                    )}
+                                </div>
+                            ) : userAddress === vendorAddress ? (
+                                <div>
+                                    You are the vendor in this order
+                                    {state === "0" ? (
+                                        <div>
+                                            <br />{" "}
+                                            <RecieveOrderButton
+                                                address={address}
+                                                handleSuccess={handleSuccess}
+                                            />
+                                        </div>
+                                    ) : state === "1" ? (
+                                        <div>
+                                            <br /> The time to accept the order has ran out. Reach
+                                            out to the purchaser for an extension.
+                                        </div>
+                                    ) : state === "2" ? (
+                                        <div>
+                                            <br /> The purchase order has been cancelled.
+                                        </div>
+                                    ) : state === "3" ? (
+                                        <div>
+                                            <br />
+                                            <Shipped
+                                                address={address}
+                                                handleSuccess={handleSuccess}
+                                            />
+                                        </div>
+                                    ) : state === "4" ? (
+                                        <div>
+                                            <br /> The time to ship has ran out. The purchaser can
+                                            extend the shipping time.
+                                        </div>
+                                    ) : state === "5" ? (
+                                        <div>
+                                            <br /> Waiting on purchaser to say they have received
+                                            the goods...
+                                        </div>
+                                    ) : state === "6" ? (
+                                        <div>
+                                            <br /> The purchase order has ended.
+                                        </div>
+                                    ) : state === "7" ? (
+                                        <div>
+                                            <br />
+                                            <VendorDispute
+                                                address={address}
+                                                handleSuccess={handleSuccess}
+                                            />
+                                        </div>
+                                    ) : state === "8" ? (
+                                        <div>
+                                            <br /> The dispute has ended.
+                                        </div>
+                                    ) : (
+                                        <div>Well this is an odd place...</div>
+                                    )}
+                                </div>
+                            ) : (
+                                <h1>NAHHH</h1>
+                            )}
                             <br />
                         </div>
                     ) : (
@@ -121,17 +244,4 @@ export default function Interact() {
             )}
         </div>
     );
-}
-
-{
-    /* 
-    cancelOrder: <Cancel address={address} handleSuccess={handleSuccess} />
-    giveReceivingTime: <AcceptingTimeButton address={address} handleSuccess={handleSuccess} />
-    recievePurchaseOrder: <RecieveOrderButton address={address} handleSuccess={handleSuccess} /> 
-    giveShippingTime: <ShippingTimeButton address={address} handleSuccess={handleSuccess} />
-    setProductSent: <Shipped address={address} handleSuccess={handleSuccess} />
-    setShipmentValue: <ShipmentValueButton address={address} handleSuccess={handleSuccess} /> does have wei/ether issue tho
-    setPurchaserDispute: <PurchaserDispute address={address} handleSuccess={handleSuccess} />
-    setVendorDispute: <VendorDispute address={address} handleSuccess={handleSuccess} />
-*/
 }

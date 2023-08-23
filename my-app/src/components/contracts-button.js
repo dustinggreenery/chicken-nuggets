@@ -51,7 +51,7 @@ export default function ContractButton() {
         msgValue: moneySent * 10 ** 18,
     });
 
-    const handleCreateContract = async (tx) => {
+    const handleCreateContract = async function (tx) {
         await tx.wait(1).then((result) => {
             setAddress(result.events[0].args.PO);
         });
@@ -94,9 +94,7 @@ export default function ContractButton() {
                     </div>
                     <button
                         className="Contract-text"
-                        onClick={() =>
-                            createProductOrder({ onSuccess: (tx) => handleCreateContract(tx) })
-                        }
+                        onClick={() => createProductOrder({ onSuccess: handleCreateContract })}
                     >
                         New Contract!
                     </button>
