@@ -13,7 +13,7 @@ import AcceptingTimeButton from "../components/accepting-time-button";
 import ShippingTimeButton from "../components/shipping-time-button";
 import PurchaserDispute from "../components/purchaser-disbute";
 import VendorDispute from "../components/vendor-dispute";
-import disconnect from "../connect.png"
+import disconnect from "../connect.png";
 
 export default function Interact() {
     const { isWeb3Enabled, account } = useMoralis();
@@ -41,7 +41,7 @@ export default function Interact() {
             onError: () => setInvalidAddress(true),
         });
     }
-    
+
     const { runContractFunction: getPurchaserAddress } = useWeb3Contract({
         abi: orderAbi,
         contractAddress: address,
@@ -232,17 +232,26 @@ export default function Interact() {
                                     )}
                                 </div>
                             ) : (
-                                <h1>NAHHH</h1>
+                                <h3 className="Interaction-subheading">
+                                    You don't have access to this product order.
+                                </h3>
                             )}
                             <br />
                         </div>
                     ) : (
                         <div>
-
                             <header className="find-form">
-                                <label className="Interaction-subheading">Enter your order address </label>
-                                <input className="Interaction-input" onChange={handleChange} placeholder="Search..." />
-                                <button className="button" onClick={() => enterAddress()}>Search</button>
+                                <label className="Interaction-subheading">
+                                    Enter your order address{" "}
+                                </label>
+                                <input
+                                    className="Interaction-input"
+                                    onChange={handleChange}
+                                    placeholder="Search..."
+                                />
+                                <button className="button" onClick={() => enterAddress()}>
+                                    Search
+                                </button>
                             </header>
                             {invalidAddress ? (
                                 <div>
@@ -253,7 +262,6 @@ export default function Interact() {
                             ) : (
                                 <div></div>
                             )}
-
                         </div>
                     )}
                 </div>
@@ -263,7 +271,7 @@ export default function Interact() {
                         <img width="60" height="60" src={disconnect}/>
                         <p className="Disconnected-text">Wallet isn't connected!</p>
                     </div>
-                </div>   
+                </div>
             )}
         </div>
     );

@@ -14,9 +14,15 @@ const states = {
     8: "Dispute Ended",
 };
 
+const units = {
+    11155111: "ETH",
+    51: "XDC",
+};
+
 module.exports = {
     factoryAbi,
     orderAbi,
     factoryAddresses,
     states,
+    units,
 };

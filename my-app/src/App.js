@@ -8,7 +8,7 @@ function App() {
         <div className="App">
             <Header />
             <header className="App-header">
-                <p className="App-title">Make a new order</p>
+                <p className="App-title">Make or Find an Order</p>
                 <p className="App-subheading">Fast. Secure. Easy. Delicious?</p>
             </header>
         </div>
