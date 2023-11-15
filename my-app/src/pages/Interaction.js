@@ -268,7 +268,7 @@ export default function Interact() {
             ) : (
                 <div className={"Disconnected-bg"}>
                     <div className="Contract-disconnected">
-                        <img width="70" height="70" src={disconnect} />
+                        <img width="60" height="60" src={disconnect}/>
                         <p className="Disconnected-text">Wallet isn't connected!</p>
                     </div>
                 </div>
