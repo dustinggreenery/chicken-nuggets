@@ -22,10 +22,6 @@ We used the technology of smart contracts to create this decentralized escrow sy
 
 We used Reactjs in order to create the comprehensive front-end. In order to create and interact with the product orders, we used Moralis.
 
-### Why XDC?
-
-XDC's minimal gas fees and quick transaction times were a significant help in out project. We also deeply connected with their emphasis of utility in real-world settings. To increase the adoption of web3 technology, more use cases for the outside world is needed. In this case, developing decentralized applications for the supply chain can expand the DeFi space.
-
 ### What's Next?
 
 Different entities are planned to be added to this smart contract to enhance the use of the product order. An option for a court entity at the start will be added. When enough time passes in a dispute, the court entity will gain the power to send tokens to the purchaser and vendor. Another entity that may be added is the shipping entity. Since the company shipping the goods have a great influence on the purchase, their inclusion is necessary.
